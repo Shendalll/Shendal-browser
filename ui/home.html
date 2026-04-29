@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shendal — Home</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-void);color:var(--text-1);min-height:100vh;overflow-x:hidden}
+  body{display:flex;flex-direction:column;align-items:center;padding:60px 24px 40px}
+
+  .logo{width:80px;height:80px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:var(--bg-sh);border:2px solid var(--border-h);margin-bottom:16px;animation:float 4s ease-in-out infinite;box-shadow:var(--glow)}
+  .logo-s{font-size:48px;font-weight:700;color:var(--accent);text-shadow:none}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  h1{font-size:24px;font-weight:300;letter-spacing:-.5px;margin-bottom:6px;background:linear-gradient(135deg,#e4e4e7,#a1a1aa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{font-size:12px;color:#52525b;margin-bottom:40px;font-weight:400}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;width:100%;max-width:740px}
+  .card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;transition:all .2s ease;cursor:default}
+  .card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+  .card-keys{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+  .key{background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);color:#00d4ff;font-size:10px;font-weight:600;padding:3px 7px;border-radius:6px;font-family:'Inter',monospace;white-space:nowrap}
+  .key.alt{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.15);color:#a78bfa}
+  .key.warm{background:rgba(253,163,151,0.08);border-color:rgba(253,163,151,0.15);color:#FDA397}
+  .card-desc{font-size:11px;color:#71717a;line-height:1.5}
+
+  .section-title{font-size:11px;font-weight:600;color:#52525b;text-transform:uppercase;letter-spacing:1px;margin:24px 0 10px;width:100%;max-width:740px}
+
+  .yt-text{color:#ff4444}
+  .tw-text{color:#9146ff}
+
+  .footer{margin-top:48px;font-size:10px;color:#3f3f46}
+</style>
+</head>
+<body>
+  <div class="logo"><span class="logo-s">S</span></div>
+  <h1>Shendal Browser</h1>
+  <p class="sub">Minimal. Clean. Built for streamers.</p>
+
+  <div class="section-title">Navigation</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + T</span></div>
+      <p class="card-desc">Open a new tab</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + W</span></div>
+      <p class="card-desc">Close the current tab</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + ←</span><span class="key">Ctrl + A</span></div>
+      <p class="card-desc">Switch to the previous tab</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + →</span><span class="key">Ctrl + D</span></div>
+      <p class="card-desc">Switch to the next tab</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + Tab</span></div>
+      <p class="card-desc">Quick search — clears the search bar and focuses it</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + L</span></div>
+      <p class="card-desc">Focus the search bar</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">F11</span></div>
+      <p class="card-desc">Cycle window modes: windowed → maximized → fullscreen</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key">Ctrl + Shift + H</span></div>
+      <p class="card-desc">Toggle auto-hide for the navigation bars</p>
+    </div>
+  </div>
+
+  <div class="section-title">Search Tricks</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-keys"><span class="key alt">you</span><span class="key alt">yt</span><span class="key alt">youtube</span></div>
+      <p class="card-desc">Type one of these + space or semicolon to search directly on <strong class="yt-text">YouTube</strong></p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key alt">tw</span><span class="key alt">twitch</span></div>
+      <p class="card-desc">Type one of these + space to search on <strong class="tw-text">Twitch</strong></p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key warm">⭐ Star</span></div>
+      <p class="card-desc">Click the star to bookmark the current page. Bookmarks appear as icons in the navbar.</p>
+    </div>
+    <div class="card">
+      <div class="card-keys"><span class="key warm">🧩 Extensions</span></div>
+      <p class="card-desc">Load Chrome extensions (like Dark Reader or AdBlock) from the puzzle icon. Built-in ad blocker included.</p>
+    </div>
+  </div>
+
+  <p class="footer">Shendal Browser — v3.0</p>
+</body>
+</html>

@@ -1,0 +1,14 @@
+appId: com.shendal.browser
+productName: Shendal Browser
+directories:
+  output: dist
+  buildResources: assets
+files:
+  - "**/*"
+  - "!dist"
+  - "!.git"
+  - "!icon whitemode.png"
+  - "!icon blackmode.png"
+win:
+  target: portable
+  icon: assets/icon.png

@@ -1,0 +1,21 @@
+{
+  "name": "shendal-browser",
+  "version": "1.0.0",
+  "description": "Minimal, clean browser for streamers.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.shendal.browser",
+    "win": {
+      "target": "portable"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  }
+}
