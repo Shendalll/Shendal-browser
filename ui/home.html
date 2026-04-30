@@ -7,27 +7,58 @@
 <link rel="stylesheet" href="styles.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  :root {
+    --bg-void: #17251D;
+    --text-1: #9FB8B0;
+    --bg-sh: rgba(159, 184, 176, 0.18);
+    --border-h: #2A5875;
+    --glow: 0 0 12px rgba(159, 184, 176, 0.35);
+    --accent: #9FB8B0;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: rgba(42,88,117,0.3);
+    --card-hover: rgba(42,88,117,0.1);
+    --card-border-hover: #2A5875;
+    --sub: rgba(159, 184, 176, 0.7);
+    --desc: rgba(159, 184, 176, 0.5);
+    --title: #9FB8B0;
+  }
+  body.light {
+    --bg-void: #8C4D52;
+    --text-1: #EFE3F4;
+    --bg-sh: rgba(239, 227, 244, 0.15);
+    --border-h: #DBC8A2;
+    --glow: 0 0 10px rgba(239, 227, 244, 0.25);
+    --accent: #EFE3F4;
+    --card-bg: rgba(0,0,0,0.05);
+    --card-border: rgba(219,200,162,0.4);
+    --card-hover: rgba(219,200,162,0.2);
+    --card-border-hover: #DBC8A2;
+    --sub: rgba(239, 227, 244, 0.8);
+    --desc: rgba(239, 227, 244, 0.6);
+    --title: #EFE3F4;
+  }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-void);color:var(--text-1);min-height:100vh;overflow-x:hidden}
   body{display:flex;flex-direction:column;align-items:center;padding:60px 24px 40px}
 
   .logo{width:80px;height:80px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:var(--bg-sh);border:2px solid var(--border-h);margin-bottom:16px;animation:float 4s ease-in-out infinite;box-shadow:var(--glow)}
+  #home-icon{width:100%;height:100%;}
   .logo-s{font-size:48px;font-weight:700;color:var(--accent);text-shadow:none}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-  h1{font-size:24px;font-weight:300;letter-spacing:-.5px;margin-bottom:6px;background:linear-gradient(135deg,#e4e4e7,#a1a1aa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .sub{font-size:12px;color:#52525b;margin-bottom:40px;font-weight:400}
+  h1{font-size:24px;font-weight:300;letter-spacing:-.5px;margin-bottom:6px;color:var(--text-1)}
+  .sub{font-size:12px;color:var(--sub);margin-bottom:40px;font-weight:400}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;width:100%;max-width:740px}
-  .card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;transition:all .2s ease;cursor:default}
-  .card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+  .card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:16px;transition:all .2s ease;cursor:default}
+  .card:hover{background:var(--card-hover);border-color:var(--card-border-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
   .card-keys{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
   .key{background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);color:#00d4ff;font-size:10px;font-weight:600;padding:3px 7px;border-radius:6px;font-family:'Inter',monospace;white-space:nowrap}
   .key.alt{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.15);color:#a78bfa}
   .key.warm{background:rgba(253,163,151,0.08);border-color:rgba(253,163,151,0.15);color:#FDA397}
-  .card-desc{font-size:11px;color:#71717a;line-height:1.5}
+  .card-desc{font-size:11px;color:var(--desc);line-height:1.5}
 
-  .section-title{font-size:11px;font-weight:600;color:#52525b;text-transform:uppercase;letter-spacing:1px;margin:24px 0 10px;width:100%;max-width:740px}
+  .section-title{font-size:11px;font-weight:600;color:var(--title);text-transform:uppercase;letter-spacing:1px;margin:24px 0 10px;width:100%;max-width:740px}
 
   .yt-text{color:#ff4444}
   .tw-text{color:#9146ff}
@@ -35,10 +66,14 @@
   .footer{margin-top:48px;font-size:10px;color:#3f3f46}
 </style>
 </head>
-<body>
-  <div class="logo"><span class="logo-s">S</span></div>
+<body class="dark">
+  <div style="position: absolute; top: 20px; right: 20px;">
+    <button id="btn-lang" class="key" style="cursor: pointer; font-size: 11px;">ESPAÑOL</button>
+  </div>
+  <div class="logo">
+    <img id="home-icon" src="../assets/icon.png" alt="S">
+  </div>
   <h1>Shendal Browser</h1>
-  <p class="sub">Minimal. Clean. Built for streamers.</p>
 
   <div class="section-title">Navigation</div>
   <div class="grid">
@@ -97,5 +132,88 @@
   </div>
 
   <p class="footer">Shendal Browser — v3.0</p>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const theme = params.get('theme') || 'dark';
+    const setLocalTheme = (t) => {
+      document.body.className = t;
+      document.getElementById('home-icon').src = t === 'light' ? '../assets/icon-white.png' : '../assets/icon.png';
+    };
+    setLocalTheme(theme);
+
+    const translations = {
+      en: {
+        title: "Shendal Browser",
+        nav: "Navigation",
+        tricks: "Search Tricks",
+        t1: "Open a new tab",
+        t2: "Close the current tab",
+        t3: "Switch to the previous tab",
+        t4: "Switch to the next tab",
+        t5: "Quick search — clears the search bar and focuses it",
+        t6: "Focus the search bar",
+        t7: "Cycle window modes: windowed → maximized → fullscreen",
+        t8: "Toggle auto-hide for the navigation bars",
+        t9: 'Type one of these + space or semicolon to search directly on <strong class="yt-text">YouTube</strong>',
+        t10: 'Type one of these + space to search on <strong class="tw-text">Twitch</strong>',
+        t11: "Click the star to bookmark the current page. Bookmarks appear as icons in the navbar.",
+        t12: "Load Chrome extensions (like Dark Reader or AdBlock) from the puzzle icon. Built-in ad blocker included.",
+        langBtn: "ESPAÑOL"
+      },
+      es: {
+        title: "Shendal Browser",
+        nav: "Navegación",
+        tricks: "Trucos de Búsqueda",
+        t1: "Abrir una nueva pestaña",
+        t2: "Cerrar la pestaña actual",
+        t3: "Cambiar a la pestaña anterior",
+        t4: "Cambiar a la pestaña siguiente",
+        t5: "Búsqueda rápida — limpia la barra de búsqueda y la enfoca",
+        t6: "Enfocar la barra de búsqueda",
+        t7: "Alternar modos de ventana: ventana → maximizada → pantalla completa",
+        t8: "Alternar ocultar automáticamente las barras de navegación",
+        t9: 'Escribe uno de estos + espacio o punto y coma para buscar directamente en <strong class="yt-text">YouTube</strong>',
+        t10: 'Escribe uno de estos + espacio para buscar en <strong class="tw-text">Twitch</strong>',
+        t11: "Haz clic en la estrella para guardar la página actual. Los marcadores aparecen como iconos en la barra.",
+        t12: "Carga extensiones de Chrome (como Dark Reader o AdBlock) desde el icono del rompecabezas. Bloqueador de anuncios integrado.",
+        langBtn: "ENGLISH"
+      }
+    };
+    
+    let currentLang = 'en';
+    document.getElementById('btn-lang').addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'es' : 'en';
+      const t = translations[currentLang];
+      document.querySelector('h1').textContent = t.title;
+      const secTitles = document.querySelectorAll('.section-title');
+      secTitles[0].textContent = t.nav;
+      secTitles[1].textContent = t.tricks;
+      const descs = document.querySelectorAll('.card-desc');
+      descs[0].textContent = t.t1;
+      descs[1].textContent = t.t2;
+      descs[2].textContent = t.t3;
+      descs[3].textContent = t.t4;
+      descs[4].textContent = t.t5;
+      descs[5].textContent = t.t6;
+      descs[6].textContent = t.t7;
+      descs[7].textContent = t.t8;
+      descs[8].innerHTML = t.t9;
+      descs[9].innerHTML = t.t10;
+      descs[10].textContent = t.t11;
+      descs[11].textContent = t.t12;
+      document.getElementById('btn-lang').textContent = t.langBtn;
+    });
+
+    // Watch for class mutations on body from executeJavaScript
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        if (m.attributeName === 'class') {
+          const isLight = document.body.classList.contains('light');
+          document.getElementById('home-icon').src = isLight ? '../assets/icon-white.png' : '../assets/icon.png';
+        }
+      });
+    });
+    observer.observe(document.body, { attributes: true });
+  </script>
 </body>
 </html>

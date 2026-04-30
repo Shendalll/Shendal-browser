@@ -13,6 +13,9 @@ const extDir = path.join(userData, 'Extensions');
 const downloadsDir = path.join(userData, 'Downloads');
 const cacheDir = path.join(userData, 'BrowserData');
 
+// Downloads tracking
+const activeDownloads = new Map();
+
 [extDir, downloadsDir, cacheDir].forEach(d => {
   if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
 });
@@ -99,6 +102,39 @@ function createWindow() {
   session.defaultSession.on('will-download', (event, item) => {
     const savePath = path.join(downloadsDir, item.getFilename());
     item.setSavePath(savePath);
+    
+    const id = Date.now().toString() + Math.random().toString(36).substr(2, 5);
+    activeDownloads.set(id, item);
+    
+    const updateDownload = () => {
+      if (!mainWindow || mainWindow.isDestroyed()) return;
+      mainWindow.webContents.send('download-updated', {
+        id,
+        filename: item.getFilename(),
+        state: item.getState(), // 'progressing', 'completed', 'cancelled', 'interrupted'
+        receivedBytes: item.getReceivedBytes(),
+        totalBytes: item.getTotalBytes(),
+      });
+    };
+    
+    item.on('updated', (event, state) => {
+      if (state === 'interrupted') {
+        updateDownload();
+      } else if (state === 'progressing') {
+        if (item.isPaused()) {
+          // paused
+        } else {
+          updateDownload();
+        }
+      }
+    });
+    
+    item.once('done', (event, state) => {
+      updateDownload();
+      activeDownloads.delete(id);
+    });
+    
+    updateDownload();
   });
 
   // ── Permissions ──
@@ -166,7 +202,7 @@ function createWindow() {
     if (!mainWindow || mainWindow.isDestroyed()) { clearInterval(mouseTrack); return; }
     const c = screen.getCursorScreenPoint(), b = mainWindow.getBounds();
     mainWindow.webContents.send('cursor-position', { x: c.x - b.x, y: c.y - b.y, winWidth: b.width, winHeight: b.height });
-  }, 50);
+  }, 100);
 
   // ── Close → save session first ──
   mainWindow.on('close', e => {
@@ -268,3 +304,17 @@ ipcMain.handle('get-paths', () => ({
   userData, extDir, downloadsDir, cacheDir,
   uiDir: path.join(__dirname, 'ui'),
 }));
+
+// Downloads
+ipcMain.handle('downloads:cancel', (_, id) => {
+  const item = activeDownloads.get(id);
+  if (item) {
+    item.cancel();
+    activeDownloads.delete(id);
+  }
+});
+
+const { shell } = require('electron');
+ipcMain.handle('downloads:open-folder', () => {
+  shell.openPath(downloadsDir);
+});

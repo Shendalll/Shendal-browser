@@ -7,8 +7,15 @@ files:
   - "**/*"
   - "!dist"
   - "!.git"
-  - "!icon whitemode.png"
-  - "!icon blackmode.png"
+  - "!icon *.png"
+  - "!icon*.png"
 win:
-  target: portable
+  target: 
+    - portable
+    - nsis
   icon: assets/icon.png
+portable:
+  requestExecutionLevel: user
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
